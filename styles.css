@@ -5,13 +5,28 @@ body {
     background-color: white;
 }
 
-header {
+header, footer {
     background-color: darkblue;
     color: white;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .container {
     display: flex;
-    align-items: center;
-    padding: 10px;
-}
+    flex-direction: column; /* Stack items by default for small screens */
+  }
+  
+  .sidebar {
+    width: 100%; /* Full width by default */
+    background-color: #f4f4f4;
+    padding: 15px;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 15px;
+  }
 
 .logo {
     width: 150px; /* Adjust as necessary */
@@ -19,10 +34,20 @@ header {
 
 nav ul {
     list-style: none;
-    padding: 0;
     display: flex;
-    margin-left: auto;
-}
+    flex-wrap: wrap; /* Wrap items on smaller screens */
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav ul li {
+    margin: 0 15px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+  }
 
 .phone-icon {
     font-size: 1.5em; /* Adjust size of the phone icon */
@@ -51,7 +76,46 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    bottom: 0;
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row; /* Arrange sidebar and content side-by-side */
+    }
+  
+    .sidebar {
+      width: 200px; /* Set fixed width for sidebar */
+    }
+  
+    .content {
+      flex: 1; /* Allow main content to take up remaining space */
+    }
+  }
+  
+  @media (max-width: 767px) {
+    header, footer {
+      text-align: center;
+    }
+  
+    nav ul {
+      justify-content: center; /* Center navigation items */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    main {
+      max-width: 1200px; /* Increase main content max-width on large screens */
+      margin: 0 auto; /* Center main content */
+    }
+  }
 
 /* Center the main content */
 main {
