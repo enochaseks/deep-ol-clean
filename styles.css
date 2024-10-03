@@ -1,0 +1,208 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+header {
+    background-color: darkblue;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    width: 150px; /* Adjust as necessary */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    margin-left: auto;
+}
+
+.phone-icon {
+    font-size: 1.5em; /* Adjust size of the phone icon */
+    color: #007BFF; /* Color for the phone icon */
+    text-decoration: none; /* Remove underline */
+}
+
+.phone-icon:hover {
+    color: #0056b3; /* Darker color on hover */
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer {
+    background-color: darkblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Center the main content */
+main {
+    text-align: center; /* Center the text */
+    max-width: 600px; /* Set a maximum width for the form */
+    margin: 0 auto; /* Center the main section */
+    padding: 20px; /* Add padding around the main content */
+}
+
+/* Increase the size of headings */
+main h1 {
+    font-size: 2.5em; /* Make the heading larger */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+/* Style for the form labels and inputs */
+label {
+    font-size: 1.2em; /* Increase the font size of labels */
+    display: block; /* Each label on a new line */
+    margin: 10px 0 5px; /* Space above and below the label */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%; /* Make inputs full width */
+    padding: 10px; /* Add padding for better spacing */
+    font-size: 1.2em; /* Increase font size for inputs */
+    margin-bottom: 15px; /* Space below inputs */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 4px; /* Slightly rounded corners */
+}
+
+/* Increase the size of the description textarea */
+textarea {
+    height: 150px; /* Make the textarea taller */
+}
+
+/* Style for the submit button */
+button {
+    background-color: #007BFF; /* Button color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Button padding */
+    font-size: 1.2em; /* Button text size */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Slightly rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+/* Hover effect for the button */
+button:hover {
+    background-color: #0056b3; /* Darker button color on hover */
+}
+
+.hero {
+    background-image: url('./images/happy cleaning.jpg'); /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center; /* Centers the image */
+    text-align: center;
+    padding: 50px 20px;
+    color: white; /* Change text color for better visibility */
+    position: relative; /* To position the overlay */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+    z-index: 1; /* Place the overlay behind text */
+}
+
+.hero h1,
+.hero p,
+.hero .cta-button {
+    position: relative; /* Positioning for text elements */
+    z-index: 2; /* Ensures text is above the overlay */
+}
+
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: darkblue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.services, .testimonials, .contact {
+    margin: 40px 0;
+}
+
+.service-item {
+    display: inline-block;
+    width: 22%;
+    margin: 1%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.service-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* Add styles for the services page */
+main {
+    padding: 20px;
+}
+
+/* Style for the service sections */
+.service {
+    border: 1px solid #ccc; /* Light border around services */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px;
+    margin: 15px 0; /* Space between services */
+    background-color: #f9f9f9; /* Light background */
+}
+
+/* Title for each service */
+.service h2 {
+    color: #007BFF; /* Color for service titles */
+    font-size: 1.8em; /* Increase font size */
+}
+
+/* Service image styling */
+.service-image {
+    max-width: 100%; /* Responsive images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+/* Paragraph styling */
+.service p {
+    font-size: 1.1em; /* Increase font size for descriptions */
+    margin: 10px 0; /* Space above and below paragraphs */
+}
+
+
+blockquote {
+    border-left: 4px solid darkblue;
+    margin: 20px 0;
+    padding-left: 10px;
+}
+
+.contact {
+    text-align: center;
+}
