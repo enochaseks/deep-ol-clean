@@ -6,10 +6,26 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Middleware - Enhanced CORS configuration for mobile compatibility
+app.use(cors({
+    origin: [
+        'https://deep-ol-clean.web.app',
+        'https://deep-ol-clean.firebaseapp.com',
+        'https://deepolclean.com',
+        'https://www.deepolclean.com',
+        'http://localhost:3000',
+        'http://localhost:5000'
+    ],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
+// Add explicit OPTIONS handling for preflight requests
+app.options('*', cors());
+
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // Gmail configuration with your app password
 const transporter = nodemailer.createTransport({
@@ -31,6 +47,10 @@ transporter.verify((error, success) => {
 
 // Route to handle quote requests
 app.post('/send-quote', async (req, res) => {
+    console.log('Received quote request from:', req.ip);
+    console.log('Request headers:', req.headers);
+    console.log('Request body:', req.body);
+    
     try {
         const {
             name,
@@ -124,9 +144,18 @@ app.post('/send-quote', async (req, res) => {
 
     } catch (error) {
         console.error('Error sending email:', error);
+        console.error('Error details:', {
+            message: error.message,
+            code: error.code,
+            command: error.command,
+            response: error.response
+        });
+        
+        // Send more detailed error response
         res.status(500).json({
             success: false,
-            message: 'Failed to send email. Please try again.'
+            message: 'Failed to send email. Please try again.',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
         });
     }
 });

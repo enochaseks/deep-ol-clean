@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Send to Gmail backend (update this URL after deploying to Render)
             const backendUrl = window.location.hostname === 'localhost' 
                 ? 'http://localhost:3001' 
-                : 'https://your-app-name.onrender.com'; // Replace with your Render URL
+                : 'https://deep-ol-clean.onrender.com'; // Your Render URL
                 
             const response = await fetch(`${backendUrl}/send-quote`, {
                 method: 'POST',
@@ -58,11 +58,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (error) {
             console.error('Error:', error);
+            console.error('Error details:', error.message);
+            
+            // Try to get more specific error information
+            let errorMessage = 'Sorry, there was an error sending your request.';
+            
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                errorMessage = 'Network error: Unable to connect to our servers.';
+            } else if (error.message.includes('CORS')) {
+                errorMessage = 'Connection error: Please try again or contact us directly.';
+            }
+            
             confirmationMessage.innerHTML = `
                 <div style="background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 5px; border: 1px solid #f5c6cb;">
-                    <strong>❌ Error:</strong> Sorry, there was an error sending your request. 
+                    <strong>❌ Error:</strong> ${errorMessage}
+                    <br><br>
                     Please call us directly at <a href="tel:+19726728291" style="color: #721c24;"><strong>(972) 672-8291</strong></a> 
                     or email <a href="mailto:Deepolclean@gmail.com" style="color: #721c24;"><strong>Deepolclean@gmail.com</strong></a>
+                    <br><br>
+                    <small>Error details: ${error.message}</small>
                 </div>
             `;
         } finally {
