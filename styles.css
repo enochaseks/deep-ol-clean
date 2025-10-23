@@ -30,6 +30,30 @@ header, footer {
 
 .logo {
     width: 80px; /* Adjust as necessary */
+    border-radius: 15px;
+    border: 3px solid transparent;
+    padding: 5px;
+    position: relative;
+    /* Diamond shadow effect */
+    box-shadow: 
+        0 0 0 5px rgba(0, 0, 0, 0.1),
+        10px 10px 20px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(8px 8px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* Create diamond-shaped shadow using pseudo-element */
+.logo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%) rotate(45deg);
+    z-index: -1;
+    border-radius: 8px;
+    filter: blur(4px);
 }
 
 nav ul {
@@ -47,6 +71,21 @@ nav ul {
   nav ul li a {
     color: white;
     text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    /* Add subtle text shadow */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Enhanced shadow on hover */
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
   }
 
 .phone-icon {
@@ -84,6 +123,12 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+    /* Add shadow effects to header */
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.06);
+    position: relative;
+    z-index: 10;
   }
 
   @media (min-width: 768px) {
@@ -210,20 +255,43 @@ button:hover {
     margin-top: 20px;
 }
 
-.services, .testimonials, .contact {
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+    padding: 20px;
+}
+
+.testimonials, .contact {
     margin: 40px 0;
 }
 
 .service-item {
-    display: inline-block;
-    width: 22%;
-    margin: 1%;
-    vertical-align: top;
     text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .service-item img {
     width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* General responsive image utility */
+img {
+    max-width: 100%;
     height: auto;
 }
 
@@ -269,4 +337,236 @@ blockquote {
 
 .contact {
     text-align: center;
+}
+
+/* ========================================
+   COMPREHENSIVE RESPONSIVE DESIGN
+   ======================================== */
+
+/* Extra Small Devices (Phones, 320px and up) */
+@media only screen and (max-width: 480px) {
+    .logo {
+        width: 60px;
+        padding: 3px;
+    }
+    
+    header {
+        padding: 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+    
+    nav ul li {
+        margin: 5px 0;
+    }
+    
+    nav ul li a {
+        padding: 10px;
+        display: block;
+        text-align: center;
+    }
+    
+    .hero {
+        padding: 30px 15px;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .services {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px 10px;
+    }
+    
+    .service-item img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    main {
+        max-width: 100%;
+        padding: 10px;
+    }
+}
+
+/* Small Devices (Landscape phones, 481px and up) */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .logo {
+        width: 70px;
+    }
+    
+    header {
+        padding: 12px 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero {
+        padding: 40px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .services {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* Medium Devices (Tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .logo {
+        width: 75px;
+    }
+    
+    header {
+        padding: 15px 25px;
+    }
+    
+    nav ul {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    
+    .hero {
+        padding: 60px 30px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .services {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    main {
+        max-width: 900px;
+    }
+}
+
+/* Large Devices (Desktops, 1024px and up) */
+@media only screen and (min-width: 1024px) and (max-width: 1439px) {
+    .logo {
+        width: 80px;
+    }
+    
+    .hero {
+        padding: 80px 40px;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .services {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    main {
+        max-width: 1200px;
+    }
+}
+
+/* Extra Large Devices (Large desktops, 1440px and up) */
+@media only screen and (min-width: 1440px) {
+    .logo {
+        width: 90px;
+    }
+    
+    .hero {
+        padding: 100px 50px;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    .services {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    main {
+        max-width: 1400px;
+    }
+    
+    header {
+        padding: 20px 50px;
+    }
+}
+
+/* ========================================
+   GENERAL RESPONSIVE UTILITIES
+   ======================================== */
+
+/* Ensure no horizontal overflow */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Responsive containers */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Responsive text sizes */
+h1 { font-size: clamp(1.8rem, 4vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+p { font-size: clamp(0.9rem, 2vw, 1.1rem); }
+
+/* Responsive spacing */
+.hero, .services, .testimonials, .contact {
+    padding: clamp(20px, 5vw, 60px) clamp(15px, 3vw, 40px);
+}
+
+/* Touch-friendly interactive elements */
+a, button {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Smooth scrolling for better UX */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+a:focus, button:focus {
+    outline: 2px solid #007BFF;
+    outline-offset: 2px;
 }
