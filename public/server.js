@@ -6,12 +6,19 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware - Simplified CORS configuration for mobile compatibility
+// Middleware - Enhanced CORS configuration for mobile compatibility
 app.use(cors({
-    origin: '*',
+    origin: [
+        'https://deep-ol-clean.web.app',
+        'https://deep-ol-clean.firebaseapp.com',
+        'https://deepolclean.com',
+        'https://www.deepolclean.com',
+        'http://localhost:3000',
+        'http://localhost:5000'
+    ],
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-    credentials: false
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
 
 // Add explicit OPTIONS handling for preflight requests

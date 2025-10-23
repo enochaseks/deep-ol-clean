@@ -27,10 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         try {
-            // Send to Gmail backend (update this URL after deploying to Render)
-            const backendUrl = window.location.hostname === 'localhost' 
-                ? 'http://localhost:3001' 
-                : 'https://deep-ol-clean.onrender.com'; // Your Render URL
+            // Always use HTTPS backend URL for production
+            const backendUrl = 'https://deep-ol-clean.onrender.com';
                 
             const response = await fetch(`${backendUrl}/send-quote`, {
                 method: 'POST',
