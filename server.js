@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Gmail configuration with your app password
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.GMAIL_USER || 'Deepolclean@gmail.com',
