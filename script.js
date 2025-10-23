@@ -1,35 +1,74 @@
 document.addEventListener('DOMContentLoaded', function() {
-    (function() {
-        emailjs.init("tzQVB-3H_M_0YJ7ig"); // Replace with your actual Public Key
-    })();
-
-    document.getElementById('quoteForm').addEventListener('submit', function(event) {
+    document.getElementById('quoteForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const mobile = document.getElementById('mobile').value;
-        const description = document.getElementById('description').value;
+        // Show loading message
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        confirmationMessage.innerText = "Sending your request...";
+        confirmationMessage.style.color = "#007BFF";
+        confirmationMessage.className = "confirmation-message";
 
-        const templateParams = {
-            Enoch: "Enoch", 
-            from_name: name,
-            name: name,
-            email: email,
-            mobile: mobile,
-            description: description,
+        // Disable submit button
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            mobile: document.getElementById('mobile').value,
+            address: document.getElementById('address').value,
+            serviceType: document.getElementById('serviceType').value,
+            propertySize: document.getElementById('propertySize').value,
+            description: document.getElementById('description').value,
+            urgency: document.getElementById('urgency').value
         };
 
-        emailjs.send('service_3kl9sro', 'template_8l415zb', templateParams) // Pass templateParams here
-            .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                document.getElementById('confirmationMessage').innerText = `Thank you, ${name}! Your request has been submitted.`;
-            }, function(error) {
-                console.error('FAILED...', error);
-                document.getElementById('confirmationMessage').innerText = "Oops! Something went wrong. Please try again later.";
+        try {
+            // Send to Gmail backend (update this URL after deploying to Render)
+            const backendUrl = window.location.hostname === 'localhost' 
+                ? 'http://localhost:3001' 
+                : 'https://your-app-name.onrender.com'; // Replace with your Render URL
+                
+            const response = await fetch(`${backendUrl}/send-quote`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
             });
 
-        // Reset the form
-        this.reset();
+            const result = await response.json();
+
+            if (result.success) {
+                confirmationMessage.innerHTML = `
+                    <div style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 5px; border: 1px solid #c3e6cb;">
+                        <strong>✅ Success!</strong> Thank you, ${formData.name}! Your quote request has been sent to Deepolclean@gmail.com. 
+                        We'll contact you within 24 hours!
+                    </div>
+                `;
+                
+                // Reset form
+                document.getElementById('quoteForm').reset();
+            } else {
+                throw new Error(result.message || 'Failed to send request');
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            confirmationMessage.innerHTML = `
+                <div style="background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 5px; border: 1px solid #f5c6cb;">
+                    <strong>❌ Error:</strong> Sorry, there was an error sending your request. 
+                    Please call us directly at <a href="tel:+19726728291" style="color: #721c24;"><strong>(972) 672-8291</strong></a> 
+                    or email <a href="mailto:Deepolclean@gmail.com" style="color: #721c24;"><strong>Deepolclean@gmail.com</strong></a>
+                </div>
+            `;
+        } finally {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }
     });
 });
